@@ -17,7 +17,7 @@ Meri jaan, may your birthday be as magical and beautiful as you are 💕
 ---
 
 ### 🌐 Live Website Link  
-👉 [Click here to open the surprise](https://your-username.github.io/happy-birthday-baccha/)  
+👉 [Click here to open the surprise](https://arnavm955-creator.github.io/Happy-birthday-babe/)  
 
 ---
 
