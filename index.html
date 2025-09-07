@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Baccha 🎂💕</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #ffe6f0, #ffccff);
+      overflow-x: hidden;
+      text-align: center;
+      position: relative;
+    }
+    h1, h2 {
+      color: #ff3399;
+      text-shadow: 2px 2px 5px rgba(255, 0, 150, 0.2);
+    }
+    .section {
+      padding: 50px 20px;
+      margin: 20px auto;
+      max-width: 900px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 2s ease;
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background: #ff66b2;
+      border: none;
+      color: white;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 102, 178, 0.4);
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff3399;
+      transform: scale(1.1);
+    }
+    #letter {
+      display: none;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      line-height: 1.6;
+    }
+    #gameCanvas {
+      background: #fff0f5;
+      border: 2px solid #ff99cc;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    #memory-game {
+      display: grid;
+      grid-template-columns: repeat(4, 80px);
+      grid-gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .card {
+      width: 80px;
+      height: 80px;
+      background: #ffb3d9;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      cursor: pointer;
+      transition: transform 0.5s;
+    }
+    .card.flipped {
+      background: #fff;
+      transform: rotateY(180deg);
+    }
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+
+  <h1>Happy Birthday My Baccha 🎂💕</h1>
+
+  <section class="section">
+    <h2>💌 A Special Letter</h2>
+    <button onclick="showLetter()">Open Letter</button>
+    <p id="letter">My sweetest baccha, on your special day, I just want to say how lucky I am to have you. You bring so much joy, love, and warmth to my life. May this year be filled with endless happiness, success, and love. Happiest Birthday, meri jaan! 💖🎂</p>
+  </section>
+
+  <section class="section">
+    <h2>🎶 Birthday Songs</h2>
+    <iframe width="100%" height="120" src="https://www.youtube.com/embed/LCXtsRCE5Y0" frameborder="0" allowfullscreen></iframe>
+    <iframe width="100%" height="120" src="https://www.youtube.com/embed/D1G_jrSSEe4" frameborder="0" allowfullscreen></iframe>
+    <iframe width="100%" height="120" src="https://www.youtube.com/embed/AMuRRXCuy-4" frameborder="0" allowfullscreen></iframe>
+  </section>
+
+  <section class="section">
+    <h2>💖 Catch the Hearts Game</h2>
+    <canvas id="gameCanvas" width="300" height="400"></canvas>
+    <p>Move basket with arrows ⬅️ ➡️ and catch falling hearts!</p>
+  </section>
+
+  <section class="section">
+    <h2>🃏 Memory Match Game</h2>
+    <div id="memory-game"></div>
+  </section>
+
+  <script>
+    // Floating background sparkles + hearts
+    const bg = document.getElementById("bgCanvas");
+    const ctxBg = bg.getContext("2d");
+    bg.width = window.innerWidth;
+    bg.height = window.innerHeight;
+    let particles = [];
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: Math.random() * bg.width,
+        y: Math.random() * bg.height,
+        size: Math.random() * 8 + 5,
+        speedY: Math.random() * 1 + 0.5,
+        emoji: Math.random() > 0.5 ? "✨" : "💖"
+      });
+    }
+    function animateBg() {
+      ctxBg.clearRect(0, 0, bg.width, bg.height);
+      particles.forEach(p => {
+        ctxBg.font = p.size + "px Arial";
+        ctxBg.fillText(p.emoji, p.x, p.y);
+        p.y += p.speedY;
+        if (p.y > bg.height) {
+          p.y = -10;
+          p.x = Math.random() * bg.width;
+        }
+      });
+      requestAnimationFrame(animateBg);
+    }
+    animateBg();
+
+    function showLetter() {
+      document.getElementById("letter").style.display = "block";
+      launchConfetti();
+    }
+    function launchConfetti() {
+      for (let i = 0; i < 100; i++) {
+        let conf = document.createElement("div");
+        conf.innerHTML = "🎉";
+        conf.style.position = "fixed";
+        conf.style.left = Math.random() * window.innerWidth + "px";
+        conf.style.top = "-20px";
+        conf.style.fontSize = "20px";
+        conf.style.animation = "fall 3s linear forwards";
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 3000);
+      }
+    }
+    const style = document.createElement("style");
+    style.innerHTML = "@keyframes fall {to {transform: translateY(100vh); opacity: 0;}}";
+    document.head.appendChild(style);
+
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    let basketX = 120, score = 0;
+    let hearts = [];
+    function drawBasket() {
+      ctx.fillStyle = "#ff66b2";
+      ctx.fillRect(basketX, 370, 60, 20);
+    }
+    function drawHearts() {
+      hearts.forEach(h => ctx.fillText("❤️", h.x, h.y));
+    }
+    function updateHearts() {
+      hearts.forEach(h => h.y += 2);
+      hearts = hearts.filter(h => {
+        if (h.y > 370 && h.x > basketX && h.x < basketX + 60) {
+          score++;
+          return false;
+        }
+        return h.y < 400;
+      });
+    }
+    function gameLoop() {
+      ctx.clearRect(0,0,300,400);
+      drawBasket();
+      drawHearts();
+      updateHearts();
+      requestAnimationFrame(gameLoop);
+    }
+    setInterval(() => {
+      hearts.push({x: Math.random()*280, y: 0});
+    }, 1000);
+    gameLoop();
+    document.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft" && basketX > 0) basketX -= 20;
+      if (e.key === "ArrowRight" && basketX < 240) basketX += 20;
+    });
+
+    const emojis = ["❤️","🎂","🎁","✨","🌹","😘","💕","🎉"];
+    let cards = [...emojis, ...emojis];
+    cards.sort(() => Math.random() - 0.5);
+    const gameBoard = document.getElementById("memory-game");
+    let flipped = [], matched = [];
+    cards.forEach((emoji, i) => {
+      const card = document.createElement("div");
+      card.classList.add("card");
+      card.dataset.value = emoji;
+      card.onclick = () => flipCard(card);
+      gameBoard.appendChild(card);
+    });
+    function flipCard(card) {
+      if (flipped.length < 2 && !card.classList.contains("flipped")) {
+        card.innerHTML = card.dataset.value;
+        card.classList.add("flipped");
+        flipped.push(card);
+        if (flipped.length === 2) {
+          setTimeout(checkMatch, 600);
+        }
+      }
+    }
+    function checkMatch() {
+      if (flipped[0].dataset.value === flipped[1].dataset.value) {
+        matched.push(...flipped);
+      } else {
+        flipped.forEach(c => {c.innerHTML = ""; c.classList.remove("flipped");});
+      }
+      flipped = [];
+    }
+  </script>
+</body>
+</html>
